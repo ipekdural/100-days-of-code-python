@@ -85,18 +85,18 @@ print("Your mission is to find the treasure.")
 choice1 = input("There are two roads ahead. Choose one. Right(R) or Left(l)?  ").lower()
 
 if choice1 == "l":
-    choice2 = input("Now you saw a stream. Swim(S) Or Wait(W)?").lower()
+    choice2 = input("You\'ve come to a lake. There is an island in the middle of the lake.You can wait for a boat or you can swim to island.  Swim(S) Or Wait(W)?").lower()
     if choice2 == "w":
         choice3 = input(
-            "There is three door in front of you...Red(R), Blue(B) or Green(G)?").lower()
+            "You arrive at the island unharmed. There is a house with 3 doors. One red, one yellow and one blue. Which colour do you choose? Red(R),Yellow(Y) or Blue(B)?").lower()
         if choice3 == "r":
             print("Opss...You burned by fire!🔥")
         elif choice3 == "b":
             print("Opss...You eaten by monster beasts.👹")
         elif choice3 == "y":
-            print("You Win!🥇")
+            print("You found the treasure! You Win!🥇")
         else:
-            print("Game Over...")
+            print("You chose a door that doesn't exist. Game Over.")
     else:
         print("Oh NO! You attacked by piranhas.🐠")
 else:
