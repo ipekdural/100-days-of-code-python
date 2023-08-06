@@ -54,10 +54,6 @@ else:
     print(f"Your score is {int_score}.")
 
 
-
-
-
-
 # Treasure Island
 print(
     '''
@@ -86,24 +82,22 @@ ____/______/______/______/______/_____"=.o|o_.--""___/______/______/______/____
 print("Welcome to Treasure Island.")
 print("Your mission is to find the treasure.")
 
-choice1 = input("There are two roads ahead. Choose one. Right(R) or Left(l)?  ")
-lower_choice1 = choice1.lower()
-if lower_choice1 == "l":
-    choice2=input("Now you saw a stream. Swim(S) Or Wait(W)?")
-    lower_choice2=choice2.lower()
-    if lower_choice2 =="w":
-      choice3=  input("There is three door in front of you...Red(R), Blue(B) or Green(G)?")
-      lower_choice3=choice3.lower()
-      if lower_choice3=="r":
-          print("Opss...You burned by fire!🔥")
-      elif lower_choice3=="b":
-          print("Opss...You eaten by monster beasts.👹")
-      elif lower_choice3=="y":
-          print("You Win!🥇")
-      else :
-          print("Game Over...")
+choice1 = input("There are two roads ahead. Choose one. Right(R) or Left(l)?  ").lower()
+
+if choice1 == "l":
+    choice2 = input("Now you saw a stream. Swim(S) Or Wait(W)?").lower()
+    if choice2 == "w":
+        choice3 = input(
+            "There is three door in front of you...Red(R), Blue(B) or Green(G)?").lower()
+        if choice3 == "r":
+            print("Opss...You burned by fire!🔥")
+        elif choice3 == "b":
+            print("Opss...You eaten by monster beasts.👹")
+        elif choice3 == "y":
+            print("You Win!🥇")
+        else:
+            print("Game Over...")
     else:
-       print("Oh NO! You attacked by piranhas.🐠")
-        
+        print("Oh NO! You attacked by piranhas.🐠")
 else:
     print("Opss...You are trapped by cannibals.💀")
