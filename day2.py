@@ -31,4 +31,4 @@ tip_percentage=int(input("What percentage tip would you like to give? 10,12 or 1
 people_num=int(input("How many people to split the bill? "))
 bill= round((total_bill+((total_bill*tip_percentage)/100))/people_num,2)
 
-print(f"Each person shoul pay ${bill}")
+print(f"Each person shoul pay ${bill}") 
