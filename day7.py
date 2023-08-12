@@ -186,12 +186,12 @@ while not end_of_game:
                 display[i] = guess
 
         if guess not in display:
-            print(f"You guessed {guess},that's not in the word.You lose a life.")
             lives = lives - 1
             if lives == 0:
                 print(f"You lose. The word you couldn't cope with was {chosen_word}.")
                 end_of_game = True
-
+            else:
+                print(f"You guessed {guess},that's not in the word.You lose a life.")
         print(f"{' '.join(display)}")
         if "_" not in display:
             end_of_game = True
