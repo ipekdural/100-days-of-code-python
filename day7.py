@@ -189,7 +189,7 @@ while not end_of_game:
             print(f"You guessed {guess},that's not in the word.You lose a life.")
             lives = lives - 1
             if lives == 0:
-                print("You lose!")
+                print(f"You lose. The word you couldn't cope with was {chosen_word}.")
                 end_of_game = True
 
         print(f"{' '.join(display)}")
