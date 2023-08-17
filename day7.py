@@ -1,3 +1,4 @@
+#HANGMAN
 import random
 import os
 
