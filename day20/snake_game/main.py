@@ -46,6 +46,8 @@ def game():
         #snake and wall collision detection
         if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
             scoreboard.game_is_over()
+            with open("data.txt", mode="w") as file:
+                file.write(f"{highest_s.highest_score()}")
             game_is_on=False
             time.sleep(0.5)
 
@@ -54,6 +56,8 @@ def game():
         for segment in snake.segments[1:]:
             if snake.head.distance(segment)<12:
                 scoreboard.game_is_over()
+                with open("data.txt", mode="w") as file:
+                    file.write(f"{highest_s.highest_score()}")
                 time.sleep(0.5)
                 game_is_on = False
 
