@@ -15,7 +15,7 @@ screen.listen()
 screen.onkey(player.move, "Up")
 def game():
     score_board.clear()
-
+    player.color("black")
     game_is_on = True
     while game_is_on:
         time.sleep(0.1)
@@ -35,6 +35,8 @@ def game():
                 score_board.clear()
                 score_board.game_over()
                 player.go_to_start()
+                player.color("white")
+
                 score_board.game_over()
                 car.game_over(car.cars)
                 game_is_on = False
