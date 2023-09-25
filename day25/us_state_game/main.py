@@ -17,10 +17,7 @@ def game():
         answer_state = screen.textinput(title=f"{len(guessed_states)}/50 Guessed",
                                         prompt="What is another state's name?").title()
         if answer_state.lower() == "exit":
-            missing_states = []
-            for state in states_list:
-                if state not in guessed_states:
-                    missing_states.append(state)
+            missing_states = [state for state in states_list if state not in guessed_states]
             for missing_state in missing_states:
                 missing_state_data = data[data.state == missing_state]
                 pen = Turtle()
