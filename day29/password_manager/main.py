@@ -3,6 +3,7 @@ import pyperclip
 from time import sleep
 from random import *
 from tkinter import*
+import json  # inbuilt module
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 chars=["!", "#", "%", "&", "(", ")", "*", "+"]
 nums=["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -89,27 +90,70 @@ def generate_button_clicked():
     #
     # password = "".join(password_list)
     # password_entry.insert(0, password)
+
+# ---------------------------- Search --------------------------------- #
+def search_button_clicked():
+    web_entry=website_entry.get().lower()
+    if web_entry=="":
+        tkinter.messagebox.showerror("Error","Please enter a website!")
+    else:
+        try:
+            with open("data.json","r") as data_file:
+                data=json.load(data_file)
+
+        except FileNotFoundError:
+            tkinter.messagebox.showwarning("Warning","No data file found. Please add data first!")
+        else:
+            keys = [key for key, value in data.items()]
+
+            if web_entry in keys:
+                e_mail=data[web_entry]["mail"]
+                password=data[web_entry]["password"]
+                tkinter.messagebox.showinfo("Information",f"{web_entry.upper()}\nMail/Username:  {e_mail}\nPassword:  {password}")
+            else:
+                tkinter.messagebox.showwarning("Warning",f"'{web_entry.capitalize()}' not found!")
+
+
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 #file process
 def add_button_clicked():
-    web_entry=website_entry.get()
-    mail_entry=email_entry.get()
-    pass_entry=password_entry.get()
+    web_entry=website_entry.get().lower()
+    mail_entry=email_entry.get().lower()
+    pass_entry=password_entry.get().lower()
+    new_data={
+        web_entry:{
+            "mail":mail_entry,
+            "password":pass_entry
+        }
+    }
     if web_entry=="" or mail_entry=="" or pass_entry=="":
         tkinter.messagebox.showwarning("Error","Please fill the all blanks!")
     else:
         question=tkinter.messagebox.askyesno("Question","Are you sure?",default="yes")
         if question==YES:
-            with open("data.txt","a") as file:
-                file.write(f"{website_entry.get()} | {email_entry.get()} | {password_entry.get()}\n")
-            sleep(0.5)
-            tkinter.messagebox.showinfo("Information","Your password has been saved successfully.")
-            password_entry.delete(0,END)
-            website_entry.delete(0,END)
-
+            try:
+                #reading old data
+                with open("data.json", "r") as data_file:
+                    data=json.load(data_file)
+            except FileNotFoundError:
+                with open("data.json", "w") as data_file:
+                    json.dump(new_data, data_file, indent=4)
+            else:
+                # updating old data with new data
+                data.update(new_data)
+                # writing updated data to data file
+                with open("data.json", "w") as data_file:
+                    json.dump(data, data_file, indent=4)
+            finally:
+                sleep(0.5)
+                tkinter.messagebox.showinfo("Information","Your password has been saved successfully.")
+                password_entry.delete(0,END)
+                website_entry.delete(0,END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
+
 
 window=Tk()
 window.title("Password Manager🔑")
@@ -121,16 +165,16 @@ canvas.create_image(100,100,image=image)
 canvas.grid(column=1,row=0)
 
 
-website_label=Label(text="Website:")
+website_label=Label(text="Website:",pady=10)
 website_label.grid(column=0,row=1)
-email_label=Label(text="Email/Username:")
+email_label=Label(text="Email/Username:",pady=10)
 email_label.grid(column=0,row=2)
-password_label=Label(text="Password:")
+password_label=Label(text="Password:",pady=10)
 password_label.grid(column=0,row=3)
 
 placeholder="example@gmail.com"
-website_entry=Entry(width=50)
-website_entry.grid(column=1,row=1,columnspan=2)
+website_entry=Entry(width=32)
+website_entry.grid(column=1,row=1)
 website_entry.focus()
 email_entry=Entry(width=50)
 email_entry.grid(column=1,row=2,columnspan=2)
@@ -138,11 +182,12 @@ email_entry.insert(0,placeholder)
 password_entry=Entry(width=32)
 password_entry.grid(column=1,row=3)
 
-generate_button=Button(text="Generate Password",width=14,command=generate_button_clicked)
+generate_button=Button(text="Generate Password",width=14,command=generate_button_clicked,bg="#FACBEA")
 generate_button.grid(column=2,row=3)
-add_button=Button(text="Add",width=30,command=add_button_clicked)
+add_button=Button(text="Add",width=30,command=add_button_clicked,bg="#CDFAD5")
 add_button.grid(column=1,row=4,columnspan=2)
-
+search_button=Button(text="Search",width=15,bg="#D2E0FB",command=search_button_clicked)
+search_button.grid(column=2,row=1)
 
 
 
